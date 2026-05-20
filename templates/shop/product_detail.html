@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<div class="container detail-layout">
+  <div>
+    {% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="detail-img">
+    {% else %}
+    <div class="placeholder-img detail-img">🎾</div>
+    {% endif %}
+  </div>
+  <div>
+    <span class="badge">{{ product.category.name }}</span>
+    <h1>{{ product.name }}</h1>
+    <p class="price" style="font-size:2rem;margin:1rem 0">฿{{ product.price }}</p>
+    <p class="stock mb-2">คงเหลือ: {{ product.stock }} ชิ้น</p>
+    <p>{{ product.description|linebreaks }}</p>
+
+    <div class="actions mt-2">
+      {% if user.is_authenticated %}
+      <form method="post" action="{% url 'toggle_favorite' product.pk %}" style="display:inline">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% url 'product_detail' product.pk %}">
+        <button type="submit" class="fav-btn {% if is_favorite %}active{% endif %}">
+          {% if is_favorite %}♥ ตราถูกใจ{% else %}♡ กดตราถูกใจ{% endif %}
+        </button>
+      </form>
+      {% if product.stock > 0 %}
+      <form method="post" action="{% url 'cart_add' product.pk %}" style="display:inline">
+        {% csrf_token %}
+        <button type="submit" class="btn">ใส่ตะกร้า</button>
+      </form>
+      {% else %}
+      <span class="badge" style="background:#dc2626">สินค้าหมด</span>
+      {% endif %}
+      {% else %}
+      <a href="{% url 'member_login' %}?next={% url 'product_detail' product.pk %}" class="btn">เข้าสู่ระบบเพื่อสั่งซื้อ</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

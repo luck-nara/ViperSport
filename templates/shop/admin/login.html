@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}แอดมิน{% endblock %}
+{% block content %}
+<div class="auth-box">
+  <h1>เข้าสู่ระบบแอดมิน</h1>
+  <p class="muted mb-2">ใช้บัญชีแอดมินที่กำหนดในระบบ (hard-coded)</p>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">{{ field.label_tag }} {{ field }}</div>
+    {% endfor %}
+    <button type="submit" class="btn" style="width:100%">เข้าสู่ระบบ</button>
+  </form>
+</div>
+{% endblock %}

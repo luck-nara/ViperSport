@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container admin-layout">
+  <aside class="admin-sidebar">
+    <h3>จัดการระบบ</h3>
+    <a href="{% url 'admin_dashboard' %}">แดชบอร์ด</a>
+    <a href="{% url 'admin_product_list' %}">สินค้า</a>
+    <a href="{% url 'admin_category_list' %}">หมวดหมู่</a>
+    <a href="{% url 'admin_order_list' %}">คำสั่งซื้อ</a>
+    <a href="{% url 'admin_member_list' %}">สมาชิก</a>
+    <hr style="border-color:var(--border);margin:1rem 0">
+    <a href="{% url 'home' %}">← กลับหน้าร้าน</a>
+    <a href="{% url 'admin_logout' %}">ออกจากระบบแอดมิน</a>
+  </aside>
+  <section>
+    {% block admin_content %}{% endblock %}
+  </section>
+</div>
+{% endblock %}

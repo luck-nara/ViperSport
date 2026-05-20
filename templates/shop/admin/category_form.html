@@ -1,0 +1,12 @@
+{% extends 'shop/admin/base_admin.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block admin_content %}
+<h1 class="section-title">{{ title }}</h1>
+<form method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="form-group">{{ field.label_tag }} {{ field }}</div>
+  {% endfor %}
+  <button type="submit" class="btn">บันทึก</button>
+</form>
+{% endblock %}

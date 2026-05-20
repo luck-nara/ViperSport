@@ -1,0 +1,17 @@
+{% extends 'shop/admin/base_admin.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block admin_content %}
+<h1 class="section-title">{{ title }}</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="form-group">
+    {{ field.label_tag }}
+    {{ field }}
+    {% if field.errors %}<span style="color:#fca5a5">{{ field.errors.0 }}</span>{% endif %}
+  </div>
+  {% endfor %}
+  <button type="submit" class="btn">บันทึก</button>
+  <a href="{% url 'admin_product_list' %}" class="btn btn-outline">ยกเลิก</a>
+</form>
+{% endblock %}

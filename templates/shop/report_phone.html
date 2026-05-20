@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}แจ้งเบอร์โทร{% endblock %}
+{% block content %}
+<div class="auth-box">
+  <h1>แจ้งเบอร์โทรรับแต้ม</h1>
+  <p class="muted mb-2">กรอกเบอร์โทรเพื่อรับแต้มสะสม (ครั้งเดียวต่อเบอร์)</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">{{ form.phone.label_tag }} {{ form.phone }}</div>
+    <button type="submit" class="btn" style="width:100%">ยืนยันและรับแต้ม</button>
+  </form>
+</div>
+{% endblock %}

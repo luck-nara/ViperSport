@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}ตะกร้าสินค้า{% endblock %}
+{% block content %}
+<div class="container">
+  <h1 class="section-title">ตะกร้าสินค้า</h1>
+  {% if items %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>สินค้า</th><th>ราคา</th><th>จำนวน</th><th>รวม</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ item.product.name }}</td>
+          <td>฿{{ item.product.price }}</td>
+          <td>{{ item.qty }}</td>
+          <td>฿{{ item.subtotal }}</td>
+          <td>
+            <form method="post" action="{% url 'cart_remove' item.product.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-danger">ลบ</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="price mt-2" style="font-size:1.5rem">ยอดรวม: ฿{{ total }}</p>
+  <a href="{% url 'checkout' %}" class="btn mt-2">ดำเนินการสั่งซื้อ (เงินสด)</a>
+  {% else %}
+  <p>ตะกร้าว่าง — <a href="{% url 'product_list' %}">เลือกซื้อสินค้า</a></p>
+  {% endif %}
+</div>
+{% endblock %}

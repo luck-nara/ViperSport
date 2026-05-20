@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}คำสั่งซื้อ #{{ order.pk }}{% endblock %}
+{% block content %}
+<div class="container">
+  <h1 class="section-title">คำสั่งซื้อ #{{ order.pk }}</h1>
+  <p>สถานะ: <span class="badge">{{ order.get_status_display }}</span></p>
+  <p>ชำระ: เงินสดที่หน้าร้าน</p>
+  <p>วันที่: {{ order.created_at|date:"d/m/Y H:i" }}</p>
+  <div class="table-wrap mt-2">
+    <table>
+      <thead><tr><th>สินค้า</th><th>จำนวน</th><th>ราคา</th><th>รวม</th></tr></thead>
+      <tbody>
+        {% for item in order.items.all %}
+        <tr>
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>฿{{ item.unit_price }}</td>
+          <td>฿{{ item.subtotal }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="price mt-2">ยอดรวม: ฿{{ order.total }}</p>
+  <a href="{% url 'member_profile' %}" class="btn btn-outline mt-2">กลับโปรไฟล์</a>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'shop/admin/base_admin.html' %}
+{% block title %}ยืนยันลบหมวดหมู่{% endblock %}
+{% block admin_content %}
+<div class="delete-warning">
+  <h2>⚠️ ยืนยันการลบหมวดหมู่</h2>
+  <p>ลบหมวดหมู่ <strong>{{ category.name }}</strong> — สินค้าในหมวดนี้อาจได้รับผลกระทบ</p>
+  <form method="post" action="{% url 'admin_category_delete' category.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">ยืนยันลบ</button>
+    <a href="{% url 'admin_category_list' %}" class="btn btn-outline">ยกเลิก</a>
+  </form>
+</div>
+{% endblock %}

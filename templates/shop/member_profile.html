@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}โปรไฟล์{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="profile-card">
+    <h1>{{ profile.user.get_full_name|default:profile.user.username }}</h1>
+    <p class="muted">{{ profile.user.email }}</p>
+    <p>เบอร์โทร: {{ profile.phone|default:"ยังไม่ได้แจ้ง" }}</p>
+    <p class="points-display">{{ profile.points }} แต้ม</p>
+    {% if not profile.phone_verified %}
+    <a href="{% url 'report_phone' %}" class="btn">แจ้งเบอร์โทรรับแต้ม</a>
+    {% endif %}
+  </div>
+
+  <h2 class="section-title">ตราถูกใจ ♥</h2>
+  <div class="card-grid mb-2">
+    {% for fav in favorites %}
+    <article class="product-card">
+      <a href="{% url 'product_detail' fav.product.pk %}">
+        {% if fav.product.image %}
+        <img src="{{ fav.product.image.url }}" alt="{{ fav.product.name }}">
+        {% else %}
+        <div class="placeholder-img">♥</div>
+        {% endif %}
+        <div class="card-body">
+          <h3>{{ fav.product.name }}</h3>
+          <p class="price">฿{{ fav.product.price }}</p>
+        </div>
+      </a>
+    </article>
+    {% empty %}
+    <p class="muted">ยังไม่มีสินค้าที่กดตราถูกใจ</p>
+    {% endfor %}
+  </div>
+
+  <h2 class="section-title">ประวัติการสั่งซื้อ</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>เลขที่</th><th>ยอดรวม</th><th>สถานะ</th><th>วันที่</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>#{{ order.pk }}</td>
+          <td>฿{{ order.total }}</td>
+          <td>{{ order.get_status_display }}</td>
+          <td>{{ order.created_at|date:"d/m/Y H:i" }}</td>
+          <td><a href="{% url 'order_detail' order.pk %}">ดู</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">ยังไม่มีคำสั่งซื้อ</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

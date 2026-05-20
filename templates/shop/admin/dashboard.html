@@ -1,0 +1,11 @@
+{% extends 'shop/admin/base_admin.html' %}
+{% block title %}แดชบอร์ดแอดมิน{% endblock %}
+{% block admin_content %}
+<h1 class="section-title">แดชบอร์ด</h1>
+<div class="stat-cards">
+  <div class="stat-card"><div class="num">{{ product_count }}</div><div>สินค้า</div></div>
+  <div class="stat-card"><div class="num">{{ order_count }}</div><div>คำสั่งซื้อ</div></div>
+  <div class="stat-card"><div class="num">{{ member_count }}</div><div>สมาชิก</div></div>
+</div>
+<p><a href="{% url 'admin_product_create' %}" class="btn">+ เพิ่มสินค้าใหม่</a></p>
+{% endblock %}

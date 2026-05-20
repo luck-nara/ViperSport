@@ -1,0 +1,21 @@
+{% extends 'shop/admin/base_admin.html' %}
+{% block title %}สมาชิก{% endblock %}
+{% block admin_content %}
+<h1 class="section-title">สมาชิก</h1>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>ผู้ใช้</th><th>อีเมล</th><th>เบอร์</th><th>แต้ม</th><th>สมัครเมื่อ</th></tr></thead>
+    <tbody>
+      {% for m in members %}
+      <tr>
+        <td>{{ m.user.username }}</td>
+        <td>{{ m.user.email }}</td>
+        <td>{{ m.phone|default:"-" }}</td>
+        <td>{{ m.points }}</td>
+        <td>{{ m.created_at|date:"d/m/Y" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}เข้าสู่ระบบ{% endblock %}
+{% block content %}
+<div class="auth-box">
+  <h1>เข้าสู่ระบบสมาชิก</h1>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {{ field }}
+      {% if field.errors %}<span style="color:#fca5a5">{{ field.errors.0 }}</span>{% endif %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn" style="width:100%">เข้าสู่ระบบ</button>
+  </form>
+  <p class="mt-2 text-center muted">ยังไม่มีบัญชี? <a href="{% url 'member_register' %}">สมัครสมาชิก</a></p>
+</div>
+{% endblock %}

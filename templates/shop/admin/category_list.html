@@ -1,0 +1,23 @@
+{% extends 'shop/admin/base_admin.html' %}
+{% block title %}หมวดหมู่{% endblock %}
+{% block admin_content %}
+<h1 class="section-title">หมวดหมู่</h1>
+<a href="{% url 'admin_category_create' %}" class="btn mb-2">+ เพิ่มหมวดหมู่</a>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>ชื่อ</th><th>slug</th><th>จัดการ</th></tr></thead>
+    <tbody>
+      {% for cat in categories %}
+      <tr>
+        <td>{{ cat.name }}</td>
+        <td>{{ cat.slug }}</td>
+        <td>
+          <a href="{% url 'admin_category_edit' cat.pk %}">แก้ไข</a>
+          <a href="{% url 'admin_category_delete_confirm' cat.pk %}" style="color:#fca5a5">ลบ</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
