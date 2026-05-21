@@ -1,37 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}หน้าแรก{% endblock %}
 {% block content %}
-<section class="hero container">
+<section class="hero">
   <span class="hero-badge">อุปกรณ์กีฬาคุณภาพ · ชำระเงินสด</span>
   <h1>ViperSport</h1>
-  <p>ร้านขายอุปกรณ์กีฬาครบวงจร สมัครสมาชิกรับแต้ม กดตราถูกใจ และสั่งซื้อชำระเงินสดที่หน้าร้าน</p>
-  <div class="hero-actions">
-    <a href="{% url 'product_list' %}" class="btn">ดูสินค้าทั้งหมด</a>
-    {% if not user.is_authenticated %}
-    <a href="{% url 'member_register' %}" class="btn btn-outline">สมัครสมาชิกฟรี</a>
-    {% endif %}
-  </div>
 </section>
 
-<div class="container">
-  <div class="features-strip">
-    <div class="feature-box">
-      <div class="icon">⭐</div>
-      <h3>แต้มสะสม</h3>
-      <p>แจ้งเบอร์โทรรับแต้มทันที</p>
-    </div>
-    <div class="feature-box">
-      <div class="icon">♥</div>
-      <h3>ตราถูกใจ</h3>
-      <p>บันทึกสินค้าที่ชอบไว้ในโปรไฟล์</p>
-    </div>
-    <div class="feature-box">
-      <div class="icon">💵</div>
-      <h3>เงินสดเท่านั้น</h3>
-      <p>รับสินค้าและชำระที่หน้าร้าน</p>
-    </div>
-  </div>
-
+<div class="container page-shell">
   {% if categories %}
   <div class="category-pills">
     {% for cat in categories %}

@@ -59,9 +59,9 @@ class ProductForm(forms.ModelForm):
         fields = [
             'category',
             'name',
-            'description',
             'price',
             'stock',
+            'description',
             'image',
             'is_active',
         ]

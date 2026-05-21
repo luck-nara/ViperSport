@@ -1,18 +1,28 @@
 {% extends 'base.html' %}
 {% block title %}โปรไฟล์{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container page-content">
+  <header class="page-head">
+    <h1>โปรไฟล์สมาชิก</h1>
+    <p class="muted">ข้อมูลบัญชี แต้มสะสม และประวัติการสั่งซื้อ</p>
+  </header>
+
   <div class="profile-card">
-    <h1>{{ profile.user.get_full_name|default:profile.user.username }}</h1>
-    <p class="muted">{{ profile.user.email }}</p>
-    <p>เบอร์โทร: {{ profile.phone|default:"ยังไม่ได้แจ้ง" }}</p>
-    <p class="points-display">{{ profile.points }} แต้ม</p>
-    {% if not profile.phone_verified %}
-    <a href="{% url 'report_phone' %}" class="btn">แจ้งเบอร์โทรรับแต้ม</a>
-    {% endif %}
+    <div class="profile-card__avatar" aria-hidden="true">
+      {{ profile.user.first_name|first|default:profile.user.username|first|upper }}
+    </div>
+    <div class="profile-card__body">
+      <h2 class="profile-card__name">{{ profile.user.get_full_name|default:profile.user.username }}</h2>
+      <p class="muted">{{ profile.user.email }}</p>
+      <p>เบอร์โทร: <strong>{{ profile.phone|default:"ยังไม่ได้แจ้ง" }}</strong></p>
+      <p class="points-display">{{ profile.points }} <span class="points-label">แต้ม</span></p>
+      {% if not profile.phone_verified %}
+      <a href="{% url 'report_phone' %}" class="btn">แจ้งเบอร์โทรรับแต้ม</a>
+      {% endif %}
+    </div>
   </div>
 
-  <h2 class="section-title">ตราถูกใจ ♥</h2>
+  <h2 class="section-title">ตราถูกใจ</h2>
   <div class="card-grid mb-2">
     {% for fav in favorites %}
     <article class="product-card">

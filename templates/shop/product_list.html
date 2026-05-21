@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}สินค้าทั้งหมด{% endblock %}
 {% block content %}
-<div class="container">
-  <h1 class="section-title">สินค้าอุปกรณ์กีฬา</h1>
+<div class="container page-content">
+  <header class="page-head">
+    <h1>สินค้าอุปกรณ์กีฬา</h1>
+    <p class="muted">ค้นหาและเลือกซื้ออุปกรณ์กีฬาครบหมวดหมู่</p>
+  </header>
 
   <form method="get" class="search-panel">
     <p class="muted mb-2">ค้นหาด้วยหลายเงื่อนไข: คำค้นหา + หมวดหมู่ + ช่วงราคา</p>
@@ -11,8 +14,10 @@
       <div class="form-group">{{ form.category.label_tag }} {{ form.category }}</div>
       <div class="form-group">{{ form.min_price.label_tag }} {{ form.min_price }}</div>
       <div class="form-group">{{ form.max_price.label_tag }} {{ form.max_price }}</div>
-      <button type="submit" class="btn">ค้นหา</button>
-      <a href="{% url 'product_list' %}" class="btn btn-outline">ล้าง</a>
+      <div class="search-actions">
+        <button type="submit" class="btn">ค้นหา</button>
+        <a href="{% url 'product_list' %}" class="btn btn-outline">ล้าง</a>
+      </div>
     </div>
   </form>
 

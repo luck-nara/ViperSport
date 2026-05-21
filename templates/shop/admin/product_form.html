@@ -2,16 +2,29 @@
 {% block title %}{{ title }}{% endblock %}
 {% block admin_content %}
 <h1 class="section-title">{{ title }}</h1>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="admin-form">
   {% csrf_token %}
-  {% for field in form %}
-  <div class="form-group">
-    {{ field.label_tag }}
-    {{ field }}
-    {% if field.errors %}<span style="color:#fca5a5">{{ field.errors.0 }}</span>{% endif %}
+  <div class="admin-form-grid">
+    {% for field in form %}
+      {% if field.field.widget.input_type == 'checkbox' %}
+      <div class="form-switch">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<span class="field-error">{{ field.errors.0 }}</span>{% endif %}
+      </div>
+      {% else %}
+      <div class="form-group{% if field.name == 'description' or field.name == 'image' %} form-group--full{% endif %}">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.help_text %}<span class="field-hint">{{ field.help_text }}</span>{% endif %}
+        {% if field.errors %}<span class="field-error">{{ field.errors.0 }}</span>{% endif %}
+      </div>
+      {% endif %}
+    {% endfor %}
   </div>
-  {% endfor %}
-  <button type="submit" class="btn">บันทึก</button>
-  <a href="{% url 'admin_product_list' %}" class="btn btn-outline">ยกเลิก</a>
+  <div class="admin-form-actions">
+    <button type="submit" class="btn">บันทึก</button>
+    <a href="{% url 'admin_product_list' %}" class="btn btn-outline">ยกเลิก</a>
+  </div>
 </form>
 {% endblock %}

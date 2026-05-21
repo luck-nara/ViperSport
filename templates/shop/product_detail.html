@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}{{ product.name }}{% endblock %}
 {% block content %}
-<div class="container detail-layout">
+<div class="container detail-page">
+  <div class="detail-layout">
   <div>
     {% if product.image %}
     <img src="{{ product.image.url }}" alt="{{ product.name }}" class="detail-img">
@@ -9,7 +10,7 @@
     <div class="placeholder-img detail-img">🎾</div>
     {% endif %}
   </div>
-  <div>
+  <div class="detail-panel">
     <span class="badge">{{ product.category.name }}</span>
     <h1>{{ product.name }}</h1>
     <p class="price" style="font-size:2rem;margin:1rem 0">฿{{ product.price }}</p>
@@ -37,6 +38,7 @@
       <a href="{% url 'member_login' %}?next={% url 'product_detail' product.pk %}" class="btn">เข้าสู่ระบบเพื่อสั่งซื้อ</a>
       {% endif %}
     </div>
+  </div>
   </div>
 </div>
 {% endblock %}

@@ -9,14 +9,15 @@
 
 ### 2. คัดลอก Connection String
 
-1. **Project Settings** (ไอคอนเฟือง) → **Database**
-2. เลือก **Connection string** → แท็บ **URI**
-3. เลือกโหมด **Session** หรือ **Direct**
-4. คัดลอก URI แบบนี้:
+1. หน้าโปรเจกต → ปุ่ม **Connect** → แท็บ **Database**  
+   หรือ **Project Settings** (เฟือง) → **Database**
+2. คัดลอก **URI** แบบ Direct (พอร์ต 5432) เช่น:
 
 ```
-postgresql://postgres.[PROJECT-REF]:[YOUR-PASSWORD]@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres
+postgresql://postgres:[YOUR-PASSWORD]@db.evxpuovoplfhcjkdcnag.supabase.co:5432/postgres
 ```
+
+3. แทน `[YOUR-PASSWORD]` ด้วยรหัสจาก **Database → Settings → Reset database password**
 
 ### 3. สร้างไฟล์ `.env`
 
@@ -63,6 +64,21 @@ DB_SSLMODE=require
 
 | อาการ | วิธีแก้ |
 |--------|--------|
+| `could not translate host name` / Name or service not known | ใช้ **Session pooler** แทน Direct (ดูด้านล่าง) — host `db.xxx.supabase.co` บางโปรเจกตมีแค่ IPv6 |
 | SSL error | ตั้ง `DB_SSLMODE=require` |
 | password authentication failed | รีเซ็ตรหัส DB ใน Supabase แล้วอัปเดต `.env` |
-| connection timeout | ลองใช้ **Direct connection** แทน pooler ใน URI |
+| connection timeout | ตรวจอินเทอร์เน็ต / โปรเจกต Supabase ไม่ถูก Pause |
+
+### แก้ DNS / IPv6 (แนะนำถ้า `check_db` ล้มเหลว)
+
+1. หน้าโปรเจกต Supabase → ปุ่ม **Connect** → **Database**
+2. เลือก **Session pooler** (พอร์ต **5432**) — ไม่ใช่ Direct
+3. คัดลอก URI แบบนี้ (ตัวอย่าง):
+
+```env
+DATABASE_URL=postgresql://postgres.evxpuovoplfhcjkdcnag:รหัสผ่าน@aws-1-ap-southeast-2.pooler.supabase.com:5432/postgres
+```
+
+> User เป็น `postgres.รหัสโปรเจกต` ไม่ใช่แค่ `postgres` — ต้องตรงกับที่ Supabase แสดง
+
+4. รันใหม่: `python manage.py check_db`

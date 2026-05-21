@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}เข้าสู่ระบบ{% endblock %}
 {% block content %}
+<div class="page-auth">
 <div class="auth-box">
   <h1>เข้าสู่ระบบสมาชิก</h1>
   <form method="post">
@@ -15,5 +16,6 @@
     <button type="submit" class="btn" style="width:100%">เข้าสู่ระบบ</button>
   </form>
   <p class="mt-2 text-center muted">ยังไม่มีบัญชี? <a href="{% url 'member_register' %}">สมัครสมาชิก</a></p>
+</div>
 </div>
 {% endblock %}

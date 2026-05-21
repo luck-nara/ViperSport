@@ -8,37 +8,42 @@
   <meta name="description" content="ViperSport ร้านขายอุปกรณ์กีฬา สมาชิกสะสมแต้ม ตราถูกใจ ชำระเงินสด">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=14">
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <a href="{% url 'home' %}" class="logo">
-        <span class="logo-icon">🐍</span>
+        <img src="{% static 'images/logo-sit.png' %}" alt="SPU SIT - School of Information Technology" class="logo-img">
         <span class="logo-text">Viper<strong>Sport</strong></span>
       </a>
       <button type="button" class="nav-toggle" aria-label="เมนู" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
       <nav class="main-nav">
-        <a href="{% url 'home' %}">หน้าแรก</a>
-        <a href="{% url 'product_list' %}">สินค้า</a>
+        <a href="{% url 'home' %}" class="{% if nav_home_active %}nav-active{% endif %}">หน้าแรก</a>
+        <a href="{% url 'product_list' %}" class="{% if nav_products_active %}nav-active{% endif %}">สินค้า</a>
         {% if user.is_authenticated %}
-          <a href="{% url 'member_profile' %}">โปรไฟล์</a>
-          <a href="{% url 'cart' %}" class="cart-link">🛒 ตะกร้า{% if cart_count %} ({{ cart_count }}){% endif %}</a>
+          <a href="{% url 'member_profile' %}" class="{% if nav_profile_active %}nav-active{% endif %}">โปรไฟล์</a>
+          <a href="{% url 'cart' %}" class="nav-cart {% if nav_cart_active %}nav-active{% endif %}">
+            <span class="nav-cart__label">ตะกร้า</span>
+            {% if cart_count %}<span class="nav-badge">{{ cart_count }}</span>{% endif %}
+          </a>
           <a href="{% url 'member_logout' %}">ออกจากระบบ</a>
         {% else %}
-          <a href="{% url 'member_login' %}">เข้าสู่ระบบ</a>
-          <a href="{% url 'member_register' %}" class="btn btn-sm">สมัครสมาชิก</a>
+          <a href="{% url 'member_login' %}" class="{% if nav_login_active %}nav-active{% endif %}">เข้าสู่ระบบ</a>
+          <a href="{% url 'member_register' %}" class="{% if nav_register_active %}nav-active{% endif %}">สมัครสมาชิก</a>
         {% endif %}
-        <a href="{% url 'admin_login' %}" class="admin-link">แอดมิน</a>
+        <a href="{% url 'admin_login' %}" class="admin-link {% if nav_admin_active %}nav-active{% endif %}">แอดมิน</a>
       </nav>
     </div>
   </header>
 
   {% if messages %}
+  <div class="messages-bar">
   <div class="container messages-wrap">
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">{{ message }}</div>
     {% endfor %}
+  </div>
   </div>
   {% endif %}
 
@@ -51,7 +56,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="logo" style="margin-bottom:0.75rem">
-            <span class="logo-icon">🐍</span>
+            <img src="{% static 'images/logo-sit.png' %}" alt="SPU SIT" class="logo-img">
             <span class="logo-text">Viper<strong>Sport</strong></span>
           </div>
           <p class="muted">ร้านอุปกรณ์กีฬาออนไลน์ สมาชิกสะสมแต้ม กดตราถูกใจ ชำระเงินสดที่หน้าร้าน</p>

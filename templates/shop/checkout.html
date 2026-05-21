@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}ชำระเงิน{% endblock %}
 {% block content %}
-<div class="container">
-  <h1 class="section-title">ยืนยันคำสั่งซื้อ</h1>
+<div class="container page-content cart-layout cart-layout--checkout">
+  <header class="page-head">
+    <h1>ยืนยันคำสั่งซื้อ</h1>
+  </header>
   <div class="profile-card mb-2">
     <p><strong>วิธีชำระ:</strong> {{ payment_method }}</p>
     <p class="muted">รับสินค้าและชำระเงินสดที่หน้าร้านเท่านั้น</p>

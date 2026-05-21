@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}คำสั่งซื้อ #{{ order.pk }}{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container page-content">
   <h1 class="section-title">คำสั่งซื้อ #{{ order.pk }}</h1>
   <p>สถานะ: <span class="badge">{{ order.get_status_display }}</span></p>
   <p>ชำระ: เงินสดที่หน้าร้าน</p>
